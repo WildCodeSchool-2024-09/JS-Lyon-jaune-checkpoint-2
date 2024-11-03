@@ -122,7 +122,7 @@ function Instructions() {
           <code>onChange</code> attributes.
         </details>
 
-        <h2>⭐ Step 6 - Create a whole page</h2>
+        <h2>⭐ Step 6 (Bonus) - Create a whole page</h2>
         <p>
           Create a <code>CupcakeDetails</code> page. Add a route to display this
           page with the path <code>/cupcakes/:id</code>.
