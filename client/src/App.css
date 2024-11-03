@@ -1,145 +1,121 @@
+:root {
+  --default-cream-color: #ffe868;
+  --background-color: #fac564;
+  --main-color: #de467c;
+  --secondary-color: #9d9cdf;
+  --light: #fffef7;
+  --dark: #2a2929;
+  --shadow: #8d8b86;
+  --light-shadow: rgba(255, 255, 255, 0.3);
+  --cupcake-basis-color: #ffd180;
+
+  --text-font: "Cantarell", sans-serif;
+  --title-font: "Amatic SC", sans-serif;
+
+  --container-width: 800px;
+  --spacing: 8px;
+  --spacing-lg: calc(var(--spacing) * 2);
+  --spacing-xl: calc(var(--spacing) * 4);
+}
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Lato", sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #eee;
-  margin: 0;
+  background-color: var(--background-color);
+  font-family: var(--text-font);
+  font-size: 14pt;
 }
 
 #root {
-  height: 100vh;
-  background-image: url("./assets/images/background.webp");
-  background-size: cover;
-  background-position: top;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 1fr;
-  align-content: start;
-  padding: 1rem;
-}
-
-header {
-  grid-column: 1 / 2;
-  grid-row: 1;
-}
-
-.logo {
-  font-size: larger;
-}
-
-.navbar {
-  grid-column: -2 / -1;
-  grid-row: 1;
-}
-
-.navbar ul {
   display: flex;
-  justify-content: end;
-  gap: 1rem;
-  list-style: none;
+  justify-content: center;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: #eee;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.navbar a:hover {
-  scale: 110%;
-}
-
-.text-box {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  align-self: center;
+h1 {
+  color: var(--secondary-color);
+  font-family: var(--title-font);
   text-align: center;
 }
 
-.block-primary {
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+.main-container {
+  width: var(--container-width);
+  background-color: var(--light);
+  padding: calc(var(--spacing-lg) * 2);
+  margin-top: var(--spacing-lg);
+  border-radius: 4px;
+  box-shadow: 4px 4px 4px var(--shadow);
 }
 
-.block-primary-main {
-  font-size: 3em;
-  letter-spacing: 5px;
-  animation: blink 12s infinite;
-}
-
-.block-primary-sub {
+.btn {
   display: block;
-  font-weight: bold;
-  letter-spacing: 7px;
-}
-
-.btn:link,
-.btn:visited {
-  text-transform: uppercase;
+  text-align: center;
+  color: var(--light);
+  padding: var(--spacing);
+  border-radius: 4px;
+  cursor: pointer;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  display: inline-block;
-  border-radius: 100px;
-  transition: all 0.2s;
-  position: relative;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  filter: brightness(0.9);
 }
 
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+.primary-btn {
+  background-color: var(--main-color);
 }
 
-.btn-white {
-  background-color: #fff;
-  color: #777;
+.secondary-btn {
+  background-color: var(--secondary-color);
 }
 
-footer {
-  grid-column: -2 / -1;
-  grid-row: 1;
-  align-self: end;
-  text-align: right;
+label {
+  margin-right: 0.5rem;
 }
 
-.wcs {
+.navbar {
+  margin-top: var(--spacing-xl);
+  margin-left: calc(var(--spacing-lg) * -1);
+}
+
+.navbar .btn {
+  margin-bottom: var(--spacing);
+}
+
+.cupcake-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+.cupcake-item {
+  margin-bottom: var(--spacing-xl);
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+}
+
+.cupcake-item:hover::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  animation: rotating 14s infinite linear;
+  background-image: url("./assets/starburst.png");
+}
+
+.instructions img {
+  margin-top: var(--spacing-lg);
+  width: calc(var(--container-width) * 2 / 3);
+}
+
+.center {
+  text-align: center;
+}
+
+a:any-link {
   text-decoration: none;
-  color: #ff1493ad;
-}
-
-.wcs:hover {
-  text-decoration: underline;
-}
-
-@keyframes blink {
-  20%,
-  24%,
-  55% {
-    color: #111;
-    text-shadow: none;
-  }
-  0%,
-  19%,
-  21%,
-  23%,
-  25%,
-  54%,
-  56%,
-  100% {
-    text-shadow: 0 0 5px #ff1493ad, 0 0 15px #eee, 0 0 20px #ff1493ad, 0 0 40px
-      #a00ac9, 0 0 60px #ff0000, 0 0 10px #970dc5, 0 0 98px #ff0000;
-    color: #fff;
-  }
 }
