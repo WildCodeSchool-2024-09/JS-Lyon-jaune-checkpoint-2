@@ -52,7 +52,8 @@ function Instructions() {
           <a href="http://localhost:3310/api/accessories">
             http://localhost:3310/api/accessories
           </a>{" "}
-          endpoint.
+          endpoint. Be sure to <strong>type the data you get</strong> from the
+          API.
         </p>
         <p>
           Once again, you can check the result with a <code>console.info</code>.
@@ -62,6 +63,19 @@ function Instructions() {
           You will need a state to store the accessories (initialized with an
           empty array). Be sure to fetch the API only once using the
           dependencies array of <code>useEffect</code>.
+        </details>
+        <details>
+          <summary>Hint 2 (about types)</summary>
+          You can add the following type declaration in your code :
+          <code>
+            <pre>
+              {
+                "type AccessoryArray = { id: number; name: string; slug: string }[];"
+              }
+            </pre>
+          </code>
+          Then use the <code>as AccessoryArray</code> type assertion where you
+          need.
         </details>
       </section>
       <section className="instructions">
