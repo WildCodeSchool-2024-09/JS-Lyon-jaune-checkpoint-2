@@ -1,7 +1,18 @@
+import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
 
+interface CupcakeType {
+  id: number;
+  accessory_id: string;
+  accessory: string;
+  color1: string;
+  color2: string;
+  color3: string;
+  name: string;
+}
+
 /* ************************************************************************* */
-const sampleCupcakes = [
+const sampleCupcakes: CupcakeType[] = [
   {
     id: 10,
     accessory_id: "4",
@@ -39,7 +50,15 @@ const sampleCupcakes = [
 
 function CupcakeList() {
   // Step 1: get all cupcakes (with useEffect)
+  const [cupCake, setCupcake] = useState<CupcakeType[]>([]);
 
+  useEffect(() => {
+    fetch("http://localhost:3310/api/cupcakes")
+      .then((resultApi) => resultApi.json())
+      .then((data) => {
+        setCupcake(data);
+      });
+  }, []);
   // Step 3: get all accessories
 
   // Step 5: create filter state
@@ -58,7 +77,11 @@ function CupcakeList() {
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {/* Step 2: repeat this block for each cupcake */}
+        {cupCake.map((cupcake) => (
+          <li key={cupcake.id} className="cupcake-item">
+            <Cupcake data={cupcake} />
+          </li>
+        ))}
         {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
           <Cupcake data={sampleCupcakes[0]} />
