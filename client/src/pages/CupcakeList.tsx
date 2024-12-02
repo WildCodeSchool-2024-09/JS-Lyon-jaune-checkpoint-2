@@ -1,71 +1,88 @@
+import { useEffect, useState } from "react";
+import "./CupcakeList.css";
 import Cupcake from "../components/Cupcake";
 
-/* ************************************************************************* */
-const sampleCupcakes = [
-  {
-    id: 10,
-    accessory_id: "4",
-    accessory: "wcs",
-    color1: "blue",
-    color2: "white",
-    color3: "red",
-    name: "France",
-  },
-  {
-    id: 11,
-    accessory_id: "4",
-    accessory: "wcs",
-    color1: "yellow",
-    color2: "red",
-    color3: "black",
-    name: "Germany",
-  },
-  {
-    id: 27,
-    accessory_id: "5",
-    accessory: "christmas-candy",
-    color1: "yellow",
-    color2: "blue",
-    color3: "blue",
-    name: "Sweden",
-  },
-];
+interface CupcakeData {
+  id: number;
+  name: string;
+  accessory: string;
+  color1: string;
+  color2: string;
+  color3: string;
+}
 
-// type CupcakeArray = typeof sampleCupcakes;
-
-/* you can use sampleCupcakes if you're stucked on step 1 */
-/* if you're fine with step 1, just ignore this ;) */
-/* ************************************************************************* */
+interface Accessory {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 function CupcakeList() {
-  // Step 1: get all cupcakes (with useEffect)
+  const [cupcakes, setCupcakes] = useState<CupcakeData[]>([]);
+  const [accessories, setAccessories] = useState<Accessory[]>([]);
+  const [selectedAccessory, setSelectedAccessory] = useState("");
 
-  // Step 3: get all accessories
+  // Fetch cupcakes from the API
+  useEffect(() => {
+    fetch("http://localhost:3310/api/cupcakes")
+      .then((responseCupcake) => responseCupcake.json())
+      .then((cupcakesJson) => {
+        setCupcakes(cupcakesJson);
+      })
+      .catch((error) => {
+        console.error("Error fetching cupcakes:", error);
+      });
+  }, []);
 
-  // Step 5: create filter state
+  // Fetch accessories from the API
+  useEffect(() => {
+    fetch("http://localhost:3310/api/accessories")
+      .then((response) => response.json())
+      .then((accessoriesJson) => {
+        setAccessories(accessoriesJson);
+      })
+      .catch((error) => {
+        console.error("Error fetching accessories:", error);
+      });
+  }, []);
+
+  // menu déroulantavec handleAccesoryChange - dom
+  function handleAccessoryChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedAccessory(event.target.value);
+  }
+
+  // Filtrer les accesoires
+  const filteredCupcakes = cupcakes.filter((cupcake) => {
+    if (selectedAccessory === "") {
+      return true;
+    }
+    return cupcake.accessory === selectedAccessory;
+  });
 
   return (
-    <>
-      <h1>My cupcakes</h1>
-      <form className="center">
-        <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
-          Filter by{" "}
-          <select id="cupcake-select">
-            <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
-          </select>
-        </label>
-      </form>
-      <ul className="cupcake-list" id="cupcake-list">
-        {/* Step 2: repeat this block for each cupcake */}
-        {/* Step 5: filter cupcakes before repeating */}
-        <li className="cupcake-item">
-          <Cupcake data={sampleCupcakes[0]} />
-        </li>
-        {/* end of block */}
-      </ul>
-    </>
+    <div className="cupcake-list-container">
+      <h1>Cupcake List</h1>
+      <div className="filter-container">
+        <label htmlFor="cupcake-select">Filter by accessory:</label>
+        <select
+          id="cupcake-select"
+          value={selectedAccessory}
+          onChange={handleAccessoryChange}
+        >
+          <option value="">---</option>
+          {accessories.map((accessory) => (
+            <option key={accessory.id} value={accessory.slug}>
+              {accessory.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="cupcake-grid">
+        {filteredCupcakes.map((cupcake) => (
+          <Cupcake key={cupcake.id} data={cupcake} />
+        ))}
+      </div>
+    </div>
   );
 }
 

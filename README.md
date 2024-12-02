@@ -61,14 +61,14 @@ Si tu as plus de temps, tu peux travailler sur ces algos bonus (ceux-ci sont fac
 
 Ton objectif est de voir où tu en es sur :
 
-- [ ] L'utilisation de fetch
-- [ ] L'utilisation des props
-- [ ] L'utilisation des states
-- [ ] L'utilisation de `map` et `filter`
-- [ ] Les loaders dans React Router
-- [ ] Le hook `useEffect`
-- [ ] La création de composants React
-- [ ] La création de routes avec React Router
+- [ ] L'utilisation de fetch C'EST BON
+- [ ] L'utilisation des props C'EST BON
+- [ ] L'utilisation des states C'EST BON : accesoires et le filtre
+- [ ] L'utilisation de `map` et `filter` C'EST BON
+- [ ] Les loaders dans React Router PAS FAITTTTTT
+- [ ] Le hook `useEffect` C'EST BON : le fetch
+- [ ] La création de composants React - déjà dans le repo
+- [ ] La création de routes avec React Router PAS FAITTTTTTTTTT
 
 Copie le fichier `.env.sample` du dossier `server` et renomme ta copie `.env`.
 

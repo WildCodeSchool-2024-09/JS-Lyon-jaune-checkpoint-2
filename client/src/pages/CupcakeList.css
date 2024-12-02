@@ -1,0 +1,27 @@
+.cupcake-list-container {
+  padding: 1rem;
+  text-align: center;
+}
+
+.filter-container {
+  margin: 1rem 0;
+}
+
+label {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cupcake-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
