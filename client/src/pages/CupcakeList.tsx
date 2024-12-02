@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
@@ -70,6 +71,9 @@ function CupcakeList() {
 
   return (
     <>
+      <div>
+        <Link to="/cupcakes/:id">Select your Cupcake</Link>
+      </div>
       <h1>My cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
