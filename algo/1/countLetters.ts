@@ -10,8 +10,9 @@ Exemples :
 */
 
 function countLetters(givenString: string, letter: string): number {
-  
-  return 0;
+  const array = givenString.split("");
+  const resultArray = array.filter((lett) => lett === letter);
+  return resultArray.length;
 }
 
 export default countLetters;
