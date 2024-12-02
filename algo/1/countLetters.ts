@@ -13,5 +13,5 @@ function countLetters(givenString: string, letter: string): number {
   // Your code here !
   return 0;
 }
-
+// i don't know how to do this
 export default countLetters;
