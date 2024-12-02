@@ -1,43 +1,52 @@
-// import {
-//  useEffect,
-//   useState,
-// } from "react";
-import type { CupcakeProps } from "../components/Cupcake";
+import { useEffect, useState } from "react";
+import Cupcake from "../components/Cupcake";
 
-export interface Cupcake {
-  cupcakes: CupcakeProps[];
+interface CupcakeArray {
+  accessory: string;
+  color1: string;
+  color2: string;
+  color3: string;
+  name: string;
+  id: number;
 }
 
+// interface AccessoryArray {
+// 	id: number;
+// 	name: string;
+// 	slug: string;
+// }
+// [];
+
 /* ************************************************************************* */
-// const sampleCupcakes = [
-//   {
-//     id: 10,
-//     accessory_id: "4",
-//     accessory: "wcs",
-//     color1: "blue",
-//     color2: "white",
-//     color3: "red",
-//     name: "France",
-//   },
-//   {
-//     id: 11,
-//     accessory_id: "4",
-//     accessory: "wcs",
-//     color1: "yellow",
-//     color2: "red",
-//     color3: "black",
-//     name: "Germany",
-//   },
-//   {
-//     id: 27,
-//     accessory_id: "5",
-//     accessory: "christmas-candy",
-//     color1: "yellow",
-//     color2: "blue",
-//     color3: "blue",
-//     name: "Sweden",
-//   },
-// ];
+const sampleCupcakes = [
+  {
+    id: 10,
+    accessory_id: "4",
+    accessory: "wcs",
+    color1: "blue",
+    color2: "white",
+    color3: "red",
+    name: "France",
+  },
+  {
+    id: 11,
+    accessory_id: "4",
+    accessory: "wcs",
+    color1: "yellow",
+    color2: "red",
+    color3: "black",
+    name: "Germany",
+  },
+  {
+    id: 27,
+    accessory_id: "5",
+    accessory: "christmas-candy",
+    color1: "yellow",
+    color2: "blue",
+    color3: "blue",
+    name: "Sweden",
+  },
+];
 
 // type CupcakeArray = typeof sampleCupcakes;
 
@@ -50,12 +59,12 @@ function CupcakeList() {
 
   // Step 5: create filter state
 
-  // const [data, setData] = useState<Cupcake[] | null > (null);
-  // useEffect(() => {
-  //   fetch("http://localhost:3310/api/cupcakes")
-  //     .then(response => response.json())
-  //     .then(data => setData(data));
-  // }, []);
+  const [data, setData] = useState<CupcakeArray[]>([]);
+  useEffect(() => {
+    fetch("http://localhost:3310/api/cupcakes")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, []);
 
   return (
     <>
@@ -71,7 +80,13 @@ function CupcakeList() {
         </label>
       </form>
 
-      {/* <ul>{data.map((cupcake) => (<li key={cupcake.id}>{cupcake.name}</li>))}</ul> */}
+      <ul>
+        {data.map((cupcake) => (
+          <li key={cupcake.id}>
+            <Cupcake data={cupcake} />
+          </li>
+        ))}
+      </ul>
 
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
