@@ -10,7 +10,7 @@ Exemples :
 */
 
 function countLetters(givenString: string, letter: string): number {
-  // Your code here !
+  let i =" ";  // Your code here !
   return 0;
 }
 

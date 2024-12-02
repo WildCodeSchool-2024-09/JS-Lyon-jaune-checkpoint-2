@@ -10,9 +10,24 @@ Pour exemple, si ta fonction recevait le tableau ci-dessous en paramètre, tu de
 ["1:0", "2:0", "3:0", "4:4", "2:2", "3:3", "1:4", "2:3", "2:4", "3:3"]
 */
 
+
+
 function getPoints(results: string[]): number {
-  // Your code here !
+  const victoire = 3;
+  const null = 1;
+  const defaite = 0;
+  if victoire > resultAdverssaire
+  console.log([3]);
+  if defaite< resultAdverssaire
+  console.log([0])
+  if null === resultAdversaire
+  console.log([1])// Your code here !
+  getPoints = (compte)=>{
+compte(victoire + defaite +null)
+  }
+  
   return 0;
 }
+
 
 export default getPoints;
