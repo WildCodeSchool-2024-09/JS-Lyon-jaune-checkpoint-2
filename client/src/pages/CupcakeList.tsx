@@ -11,6 +11,11 @@ interface CupcakeType {
   name: string;
 }
 
+interface AccessoryType {
+  id: string;
+  name: string;
+}
+
 /* ************************************************************************* */
 const sampleCupcakes: CupcakeType[] = [
   {
@@ -51,6 +56,8 @@ const sampleCupcakes: CupcakeType[] = [
 function CupcakeList() {
   // Step 1: get all cupcakes (with useEffect)
   const [cupCake, setCupcake] = useState<CupcakeType[]>([]);
+  const [accessories, setAccessories] = useState<AccessoryType[]>([]);
+  const [selectedAccessory, setSelectedAccessory] = useState<string>("");
 
   useEffect(() => {
     fetch("http://localhost:3310/api/cupcakes")
@@ -60,24 +67,46 @@ function CupcakeList() {
       });
   }, []);
   // Step 3: get all accessories
+  useEffect(() => {
+    fetch("http://localhost:3310/api/accessories")
+      .then((resultApi) => resultApi.json())
+      .then((data) => {
+        setAccessories(data);
+      });
+  }, []);
+
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedAccessory(event.target.value);
+  };
 
   // Step 5: create filter state
-
+  const filteredCupcakes = selectedAccessory
+    ? cupCake.filter((cupcake) => cupcake.accessory_id === selectedAccessory)
+    : cupCake;
   return (
     <>
       <h1>My cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select
+            id="cupcake-select"
+            value={selectedAccessory}
+            onChange={handleFilterChange}
+          >
             <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {/* Step 4: Dynamically add options for each accessory */}
+            {accessories.map((accessory) => (
+              <option key={accessory.id} value={accessory.id}>
+                {accessory.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {cupCake.map((cupcake) => (
+        {/* Step 5: Map filtered cupcakes to render them */}
+        {filteredCupcakes.map((cupcake) => (
           <li key={cupcake.id} className="cupcake-item">
             <Cupcake data={cupcake} />
           </li>
