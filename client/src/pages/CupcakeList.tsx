@@ -1,35 +1,43 @@
-import Cupcake from "../components/Cupcake";
+// import {
+//  useEffect,
+//   useState,
+// } from "react";
+import type { CupcakeProps } from "../components/Cupcake";
+
+export interface Cupcake {
+  cupcakes: CupcakeProps[];
+}
 
 /* ************************************************************************* */
-const sampleCupcakes = [
-  {
-    id: 10,
-    accessory_id: "4",
-    accessory: "wcs",
-    color1: "blue",
-    color2: "white",
-    color3: "red",
-    name: "France",
-  },
-  {
-    id: 11,
-    accessory_id: "4",
-    accessory: "wcs",
-    color1: "yellow",
-    color2: "red",
-    color3: "black",
-    name: "Germany",
-  },
-  {
-    id: 27,
-    accessory_id: "5",
-    accessory: "christmas-candy",
-    color1: "yellow",
-    color2: "blue",
-    color3: "blue",
-    name: "Sweden",
-  },
-];
+// const sampleCupcakes = [
+//   {
+//     id: 10,
+//     accessory_id: "4",
+//     accessory: "wcs",
+//     color1: "blue",
+//     color2: "white",
+//     color3: "red",
+//     name: "France",
+//   },
+//   {
+//     id: 11,
+//     accessory_id: "4",
+//     accessory: "wcs",
+//     color1: "yellow",
+//     color2: "red",
+//     color3: "black",
+//     name: "Germany",
+//   },
+//   {
+//     id: 27,
+//     accessory_id: "5",
+//     accessory: "christmas-candy",
+//     color1: "yellow",
+//     color2: "blue",
+//     color3: "blue",
+//     name: "Sweden",
+//   },
+// ];
 
 // type CupcakeArray = typeof sampleCupcakes;
 
@@ -38,11 +46,16 @@ const sampleCupcakes = [
 /* ************************************************************************* */
 
 function CupcakeList() {
-  // Step 1: get all cupcakes (with useEffect)
-
   // Step 3: get all accessories
 
   // Step 5: create filter state
+
+  // const [data, setData] = useState<Cupcake[] | null > (null);
+  // useEffect(() => {
+  //   fetch("http://localhost:3310/api/cupcakes")
+  //     .then(response => response.json())
+  //     .then(data => setData(data));
+  // }, []);
 
   return (
     <>
@@ -57,11 +70,14 @@ function CupcakeList() {
           </select>
         </label>
       </form>
+
+      {/* <ul>{data.map((cupcake) => (<li key={cupcake.id}>{cupcake.name}</li>))}</ul> */}
+
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
         {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
-          <Cupcake data={sampleCupcakes[0]} />
+          {/* <Cupcake data={sampleCupcakes[0]} /> */}
         </li>
         {/* end of block */}
       </ul>
