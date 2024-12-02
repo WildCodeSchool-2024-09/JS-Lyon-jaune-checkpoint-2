@@ -85,8 +85,10 @@ function CupcakeList() {
   }, []);
 
   // Step 5: create filter state
-  const handleAccessoryChange = () => {
-    setSelectedAccessory(selectedAccessory);
+  const handleAccessoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setSelectedAccessory(event.target.value);
   };
 
   const filteredCupcakes = selectedAccessory
