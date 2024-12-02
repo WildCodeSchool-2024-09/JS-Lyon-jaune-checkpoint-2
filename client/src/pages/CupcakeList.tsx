@@ -16,6 +16,7 @@ interface CupCakeArray {
   color2: string;
   color3: string;
   name: string;
+  slug: string;
 }
 
 function CupcakeList() {
@@ -29,8 +30,6 @@ function CupcakeList() {
       });
   }, []);
 
-  console.info(cupState);
-
   const [cupState2, setCupState2] = useState<CupCakeArray[]>([]);
   useEffect(() => {
     fetch("http://localhost:3310/api/accessories")
@@ -40,20 +39,22 @@ function CupcakeList() {
       });
   }, []);
 
-  console.info(cupState2);
+  const [filterState, setFilterState] = useState("");
 
-  // Step 5: create filter state
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const input = event.target.value;
+    setFilterState(input);
+  };
 
   return (
     <>
       <h1>My cupcakes</h1>
-      <form className="center">
+      <form className="center" onSubmit={(event) => event.preventDefault()}>
         <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select id="cupcake-select" onChange={handleChange}>
             {cupState2.map((tata) => (
-              <option key={tata.id} value={tata.id}>
+              <option key={tata.id} value={tata.slug}>
                 {tata.name}
               </option>
             ))}
@@ -61,11 +62,13 @@ function CupcakeList() {
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {cupState.map((toto) => (
-          <li className="cupcake-item" key={toto.id}>
-            <Cupcake data={toto} />
-          </li>
-        ))}
+        {cupState
+          .filter((titi) => titi.accessory === filterState)
+          .map((toto) => (
+            <li className="cupcake-item" key={toto.id}>
+              <Cupcake data={toto} />
+            </li>
+          ))}
       </ul>
     </>
   );
