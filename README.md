@@ -2,6 +2,7 @@
 
 ## Rappel - Que sont les checkpoints ?
 
+
 Pour rappel un **checkpoint** est un terme utilisé dans la Wild Code School pour décrire une **auto-évaluation dans un temps donné**. Elle dure généralement une demi-journée (jusqu'à une journée complète ou plus).
 
 Ces checkpoints sont conçus pour atteindre un certain nombre d’objectifs en te présentant :
