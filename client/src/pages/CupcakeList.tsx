@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
@@ -36,9 +37,20 @@ const sampleCupcakes = [
 /* you can use sampleCupcakes if you're stucked on step 1 */
 /* if you're fine with step 1, just ignore this ;) */
 /* ************************************************************************* */
-
 function CupcakeList() {
   // Step 1: get all cupcakes (with useEffect)
+  const [listCupcake, setListCupcake] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3310/api/cupcakes")
+      .then((response) => response.json())
+      .then((data) => {
+        setListCupcake(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cupcakes:", error);
+      });
+  }, []);
 
   // Step 3: get all accessories
 
@@ -46,7 +58,7 @@ function CupcakeList() {
 
   return (
     <>
-      <h1>My cupcakes</h1>
+      <h1>My Cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
@@ -59,6 +71,11 @@ function CupcakeList() {
       </form>
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
+        {listCupcake.map((cupcake) => (
+          <li key={cupcake.id} className="cupcake-item">
+            <Cupcake data={cupcake} />
+          </li>
+        ))}
         {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
           <Cupcake data={sampleCupcakes[0]} />
