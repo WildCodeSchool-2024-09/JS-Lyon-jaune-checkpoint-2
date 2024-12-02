@@ -100,6 +100,7 @@ function CupcakeList() {
       <h1>My Cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
+          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
           <select
             id="cupcake-select"
@@ -107,6 +108,7 @@ function CupcakeList() {
             onChange={handleAccessoryChange}
           >
             <option value="">---</option>
+            {/* Step 4: add an option for each accessory */}
             {accessories.map((accessory) => (
               <option key={accessory.id} value={accessory.id}>
                 {accessory.name}
@@ -116,14 +118,17 @@ function CupcakeList() {
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
+        {/* Step 2: repeat this block for each cupcake */}
         {filteredCupcakes.map((cupcake) => (
           <li key={cupcake.id} className="cupcake-item">
             <Cupcake data={cupcake} />
           </li>
         ))}
+        {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
           <Cupcake data={sampleCupcakes[0]} />
         </li>
+        {/* end of block */}
       </ul>
     </>
   );
