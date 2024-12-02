@@ -2,7 +2,26 @@ import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
-const sampleCupcakes = [
+interface CupcakeType {
+  id: number;
+  accessory_id: string;
+  accessory: string;
+  color1: string;
+  color2: string;
+  color3: string;
+  name: string;
+}
+
+type Accessory = {
+  id: number;
+  name: string;
+  slug: string;
+};
+
+type AccessoryArray = Accessory[];
+
+/* ************************************************************************* */
+const sampleCupcakes: CupcakeType[] = [
   {
     id: 10,
     accessory_id: "4",
@@ -32,14 +51,13 @@ const sampleCupcakes = [
   },
 ];
 
-// type CupcakeArray = typeof sampleCupcakes;
-
-/* you can use sampleCupcakes if you're stucked on step 1 */
+/* you can use sampleCupcakes if you're stuck on step 1 */
 /* if you're fine with step 1, just ignore this ;) */
 /* ************************************************************************* */
 function CupcakeList() {
   // Step 1: get all cupcakes (with useEffect)
-  const [listCupcake, setListCupcake] = useState([]);
+  const [listCupcake, setListCupcake] = useState<CupcakeType[]>([]);
+  const [accessories, setAccessories] = useState<AccessoryArray>([]);
 
   useEffect(() => {
     fetch("http://localhost:3310/api/cupcakes")
@@ -53,6 +71,17 @@ function CupcakeList() {
   }, []);
 
   // Step 3: get all accessories
+  useEffect(() => {
+    fetch("http://localhost:3310/api/accessories")
+      .then((response) => response.json())
+      .then((data) => {
+        setAccessories(data as AccessoryArray);
+        console.info("Fetched accessories:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching accessories:", error);
+      });
+  }, []);
 
   // Step 5: create filter state
 
@@ -65,7 +94,12 @@ function CupcakeList() {
           Filter by{" "}
           <select id="cupcake-select">
             <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {/* Step 4: add an option for each accessory*/}
+            {accessories.map((accessory) => (
+              <option key={accessory.id} value={accessory.id}>
+                {accessory.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
