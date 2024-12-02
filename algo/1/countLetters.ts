@@ -10,7 +10,9 @@ Exemples :
 */
 
 function countLetters(givenString: string, letter: string): number {
-  // Your code here !
+  if (givenString === letter) {
+    return Number.parseInt(givenString);
+  }
   return 0;
 }
 
