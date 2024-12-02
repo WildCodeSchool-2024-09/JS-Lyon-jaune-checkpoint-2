@@ -38,7 +38,7 @@ import Cupcake from "../components/Cupcake";
 /* if you're fine with step 1, just ignore this ;) */
 /* ************************************************************************* */
 
-function CupcakeList() {
+export default function CupcakeList() {
   // Step 1: get all cupcakes (with useEffect)
 
   interface CupCakeType {
@@ -50,17 +50,46 @@ function CupcakeList() {
     id: 10;
     name: string;
   }
+
+  interface AccessorieType {
+    id: number;
+    name: string;
+    slug: string;
+  }
   const [cupCakes, setCupCakes] = useState<CupCakeType[]>([]);
+  const [accessories, setAccessories] = useState<AccessorieType[]>([]);
+  const [cupCakesFiltered, setCupeCakesFiltered] = useState<CupCakeType[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3310/api/cupcakes ")
+    fetch("http://localhost:3310/api/cupcakes")
       .then((response) => response.json())
       .then((cupCakesDatas) => setCupCakes(cupCakesDatas));
   }, []);
 
   // Step 3: get all accessories
 
+  useEffect(() => {
+    fetch("http://localhost:3310/api/accessories")
+      .then((response) => response.json())
+      .then((accessoriesDatas) => setAccessories(accessoriesDatas));
+  }, []);
+
   // Step 5: create filter state
+
+  const [accessorieFilter, setAccessorieFilter] = useState<string | null>();
+
+  const handleChangeAccessorie = (selectedFilter: string) => {
+    if (selectedFilter !== "All") {
+      setAccessorieFilter(selectedFilter);
+      setCupeCakesFiltered(
+        cupCakes.filter(
+          (cupCake) => cupCake.accessory === accessorieFilter?.toLowerCase(),
+        ),
+      );
+    } else {
+      setCupeCakesFiltered(cupCakes);
+    }
+  };
 
   return (
     <>
@@ -69,8 +98,23 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
-            <option value="">---</option>
+          <select
+            id="cupcake-select"
+            onChange={(e) => handleChangeAccessorie(e.target.value)}
+          >
+            <option value="All">All</option>
+            {accessories.map((accessorie) => {
+              return (
+                <>
+                  <option
+                    key={accessorie.id}
+                    value={accessorie.name.toLowerCase()}
+                  >
+                    {accessorie.name}
+                  </option>
+                </>
+              );
+            })}
             {/* Step 4: add an option for each accessory */}
           </select>
         </label>
@@ -78,17 +122,13 @@ function CupcakeList() {
       <ul id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
         {/* Step 5: filter cupcakes before repeating */}
-        {cupCakes.map((cupCake) => {
-          return (
-            <li key={cupCake.id} className="cupcake-item">
-              <Cupcake data={cupCake} />
-            </li>
-          );
-        })}
+        {(accessorieFilter ? cupCakesFiltered : cupCakes).map((cupCake) => (
+          <li key={cupCake.id} className="cupcake-item">
+            <Cupcake data={cupCake} />
+          </li>
+        ))}
         {/* end of block */}
       </ul>
     </>
   );
 }
-
-export default CupcakeList;

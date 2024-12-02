@@ -29,6 +29,9 @@ const router = createBrowserRouter([
         element: <CupcakeList />,
         // Step 1: load data here
       },
+      {
+        path: "cupcakesdetails/:id",
+      },
     ],
   },
 ]);
