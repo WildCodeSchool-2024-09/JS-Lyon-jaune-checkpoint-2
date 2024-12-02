@@ -1,4 +1,4 @@
-# Checkpoint 2 - JS
+# Checkpoint 2 - JS oui
 
 ## Rappel - Que sont les checkpoints ?
 
