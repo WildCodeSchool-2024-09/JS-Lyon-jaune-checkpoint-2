@@ -18,10 +18,8 @@ interface CupCakeArray {
   name: string;
 }
 
-type AccessoryArray = { id: number; name: string; slug: string }[];
-
 function CupcakeList() {
-  const [cupState, setCupState] = useState([]);
+  const [cupState, setCupState] = useState<CupCakeArray[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:3310/api/cupcakes")
