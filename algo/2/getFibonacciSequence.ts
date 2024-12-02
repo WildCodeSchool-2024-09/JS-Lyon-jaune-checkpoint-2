@@ -1,5 +1,6 @@
 /*
-Créé une fonction getFibonacciSequence qui prend un nombre n en paramètre et retourne un tableau contenant les n premiers nombres de la suite de Fibonacci.
+Créé une fonction getFibonacciSequence qui prend un nombre n en paramètre et retourne un tableau contenant les n premiers nombres 
+de la suite de Fibonacci.
 
 Détails
 
@@ -10,9 +11,16 @@ Détails
 Si n est inférieur ou égal à 0, la fonction doit retourner un tableau vide []
 */
 
-function getFibonacciSequence(size: number): number[] {
-  // Your code here !
+function getFibonacciSequence[n](size: number): number[] {
+     let n = (n-1) + (n-2);  
+     for (let n = 2; n < number; n++) {
+  
   return [0, 1];
+} 
+if (n <= 0) {
+    return [];
+  }
+
 }
 
 export default getFibonacciSequence;
