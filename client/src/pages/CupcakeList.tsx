@@ -9,8 +9,18 @@ import Cupcake from "../components/Cupcake";
 /* if you're fine with step 1, just ignore this ;) */
 /* ************************************************************************* */
 
+interface CupCakeArray {
+  id: number;
+  accessory: string;
+  color1: string;
+  color2: string;
+  color3: string;
+  name: string;
+}
+
+type AccessoryArray = { id: number; name: string; slug: string }[];
+
 function CupcakeList() {
-  // Step 1: get all cupcakes (with useEffect)
   const [cupState, setCupState] = useState([]);
 
   useEffect(() => {
@@ -23,7 +33,16 @@ function CupcakeList() {
 
   console.info(cupState);
 
-  // Step 3: get all accessories
+  const [cupState2, setCupState2] = useState<CupCakeArray[]>([]);
+  useEffect(() => {
+    fetch("http://localhost:3310/api/accessories")
+      .then((titi) => titi.json())
+      .then((tata) => {
+        setCupState2(tata);
+      });
+  }, []);
+
+  console.info(cupState2);
 
   // Step 5: create filter state
 
@@ -35,8 +54,11 @@ function CupcakeList() {
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
           <select id="cupcake-select">
-            <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {cupState2.map((tata) => (
+              <option key={tata.id} value={tata.id}>
+                {tata.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
